@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Producto.hasMany(models.ProductoCarrito,{foreignKey:'idProducto'})
       Producto.hasMany(models.ProductoVenta,{foreignKey:'idProducto'})
-      Producto.hasOne(models.CategoriaProducto,{foreignKey:'idCategoria'})
+      Producto.belongsTo(models.CategoriaProducto,{foreignKey:'idCategoria'})
     }
   }
   Producto.init({
