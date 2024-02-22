@@ -7,3 +7,4 @@ class Usuario{
         this.rating=rating;
     }
 }
+module.exports=Usuario;

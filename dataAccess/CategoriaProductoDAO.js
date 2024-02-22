@@ -8,7 +8,7 @@ class CategoriaProductoDAO{
     async agregar(categoria){
         try {
             const categoriaAgregada = await CategoriaProducto.create(categoria)
-            console.log('Producto agregado con éxito');
+            console.log('Categoria de Producto agregada con éxito');
             return categoriaAgregada;
         } catch (error) {
             console.log('Ha surgido un error al agregar la categoria de producto',error);
@@ -27,7 +27,7 @@ class CategoriaProductoDAO{
     async consultadPorId(id){
         try {
             const productoConsultado = await CategoriaProducto.findByPk(id)
-            console.log('Producto consultado con éxito');
+            console.log('Categoria de producto consultada con éxito');
             return productoConsultado;
         } catch (error) {
             console.log('Ha surgido un error al consultar la categoria de producto',error);
@@ -37,7 +37,7 @@ class CategoriaProductoDAO{
     async consultadPorNombre(nombre){
         try {
             const productoConsultado = await CategoriaProducto.findOne({where:{nombre:nombre}})
-            console.log('Producto consultado con éxito');
+            console.log('Categoria de producto consultada con éxito');
             return productoConsultado;
         } catch (error) {
             console.log('Ha surgido un error al consultar la categoria de producto',error);
@@ -47,7 +47,7 @@ class CategoriaProductoDAO{
     async actualizar(id,nuevaCategoria){
         try {
             const categoriaActualizada = await CategoriaProducto.update(nuevaCategoria,{where:{id}})
-            console.log('Producto actualizado con éxito');
+            console.log('Categoria de producto actualizada con éxito');
             return categoriaActualizada;
         } catch (error) {
             console.log('Ha surgido un error al actualizar la categoria de producto',error);
@@ -60,7 +60,7 @@ class CategoriaProductoDAO{
                 console.log('La categoria que desea eliminar no existe');
             }
             await CategoriaProducto.destroy({where:{id}})
-            console.log('Producto eliminado con éxito');
+            console.log('Categoria de producto eliminada con éxito');
         } catch (error) {
             console.log('Ha surgido un error al eliminar la categoria de producto',error);
         }
