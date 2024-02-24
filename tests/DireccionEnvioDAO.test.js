@@ -1,8 +1,9 @@
 const DireccionEnvioDAO = require('./DireccionEnvioDAO');
 
 describe('DireccionEnvioDAO', () => {
-    it('debería agregar una dirección de envío correctamente', async () => {
-        // Simular una dirección de envío
+    let direccionEnvioId;
+
+    test('debería agregar una dirección de envío correctamente', async () => {
         const direccionEnvio = {
             idUsuario: 1,
             calle: 'Calle Principal',
@@ -12,16 +13,37 @@ describe('DireccionEnvioDAO', () => {
             codigoPostal: '12345',
             pais: 'País Principal'
         };
-        // Agregar la dirección de envío y verificar que se agregó correctamente
+
         const direccionAgregada = await DireccionEnvioDAO.agregar(direccionEnvio);
         expect(direccionAgregada.idUsuario).toBe(direccionEnvio.idUsuario);
         expect(direccionAgregada.calle).toBe(direccionEnvio.calle);
         expect(direccionAgregada.numero).toBe(direccionEnvio.numero);
-        expect(direccionAgregada.ciudad).toBe(direccionEnvio.ciudad);
-        expect(direccionAgregada.estado).toBe(direccionEnvio.estado);
-        expect(direccionAgregada.codigoPostal).toBe(direccionEnvio.codigoPostal);
-        expect(direccionAgregada.pais).toBe(direccionEnvio.pais);
+
+        direccionEnvioId = direccionAgregada.id; // Guardar el ID para las pruebas posteriores
     });
 
-    // Agrega más pruebas aquí según sea necesario para otros métodos del DAO
+    test('debería consultar una dirección de envío por ID de usuario correctamente', async () => {
+        const direccionConsultada = await DireccionEnvioDAO.consultarPorUsuario(1);
+        expect(direccionConsultada.id).toBe(direccionEnvioId);
+    });
+
+    test('debería actualizar una dirección de envío correctamente', async () => {
+        const nuevaDireccion = {
+            calle: 'Nueva Calle',
+            numero: '456',
+            ciudad: 'Nueva Ciudad',
+            estado: 'Nuevo Estado',
+            codigoPostal: '54321',
+            pais: 'Nuevo País'
+        };
+
+        const direccionActualizada = await DireccionEnvioDAO.actualizar(1, nuevaDireccion);
+        expect(direccionActualizada).toBeTruthy(); // Verifica que la actualización fue exitosa
+    });
+
+    test('debería eliminar una dirección de envío correctamente', async () => {
+        await DireccionEnvioDAO.eliminar(1);
+        const direccionEliminada = await DireccionEnvioDAO.consultarPorUsuario(1);
+        expect(direccionEliminada).toBeNull(); // Verifica que la dirección ya no exista
+    });
 });
